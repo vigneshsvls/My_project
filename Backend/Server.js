@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-//const userSchema = require('./models/Info_schema');
 const User = require('./models/Signup_Schema');
 const cors = require('cors');
 
@@ -9,15 +8,15 @@ const app = express();
 const PORT = 9000;
 
 app.use(cors());
-// Middleware to parse JSON requests
+//Middleware to parse JSON requests
 app.use(express.json());
 dotenv.config();
 
 
-// MongoDB connection URI
+//MongoDB connection URI
 const MONGO_URI = process.env.MONGO_URI;
 
-// Connect to MongoDB
+//Connect to MongoDB
 mongoose.connect(MONGO_URI)
   .then(() => {
     console.log('Connected to MongoDB');
@@ -26,7 +25,6 @@ mongoose.connect(MONGO_URI)
     console.error('Error connecting to MongoDB:', err);
   });
 
-
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on https://localhost:${PORT}`);
@@ -34,24 +32,6 @@ app.listen(PORT, () => {
 
 
 //routes
-//new user
-// app.post('/api/user', async (req, res) => {
-//   const {username, password, displayname, location, linkedSocialMedia } = req.body;
-//   try {
-//     const newUser = new User({
-//       username,
-//       password,
-//       displayname,
-//       location,
-//       linkedSocialMedia,
-//     });
-//     await newUser.save();
-//     res.status(201).json({ message: 'User created successfully' });
-//   } catch (error) {
-//     console.error('Error creating user:', error);
-//     res.status(500).json({ error: 'Failed to create user' });
-//   }
-// });
 
 //connecting frontend signup page to backend.
 app.post('/register', async (req, res) => {
@@ -67,8 +47,6 @@ app.post('/register', async (req, res) => {
         res.json({ message: error });
     });
 });
-
-
 
 // Login Route
 app.post('/login', async (req, res) => {
@@ -91,29 +69,6 @@ app.post('/login', async (req, res) => {
       res.status(500).json({ message: 'Server error' });
   }
 });
-
-
-// app.post('/enter', async (req, res) => {
-//   const { email, platform, socialId } = req.body;  // frontend must send these 3
-
-//   try {
-//       const user = await User.findOne({ email });  // find user by email
-
-//       if (!user) {
-//           return res.status(404).json({ message: 'User not found' });
-//       }
-
-//       // Since linkedSocialMedia is a Map, we use set()
-//       user.linkedSocialMedia.set(platform, socialId);
-
-//       await user.save();  // save the changes
-//       res.json({ message: 'Social media info saved successfully!' });
-
-//   } catch (error) {
-//       console.error('Error saving social media info:', error);
-//       res.status(500).json({ message: 'Server error' });
-//   }
-// });
 
 
 
@@ -151,7 +106,11 @@ app.post('/nearby', async (req, res) => {
   try {
     const nearbyUsers = await User.find({
       location: {
+        // MongoDB geospatial query operator $nearSphere.
+        // It finds documents within a specified distance of a geospatial point.
+        //$nearSphere operator is used to find documents within a certain distance of a specified geospatial point 
         $nearSphere: {
+          // Define the geometry of the point to search from.
           $geometry: {
             type: "Point",
             coordinates: [longitude, latitude]
@@ -160,10 +119,43 @@ app.post('/nearby', async (req, res) => {
         }
       }
     }).select('name linkedSocialMedia');
+    // Only select the 'name' and 'linkedSocialMedia' fields
+    // from the matching user documents to be returned
+    // in the result
 
     res.json(nearbyUsers);
   } catch (error) {
     console.error('Error finding nearby users:', error);
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+// Profile API: Get all accounts of a user
+app.get('/accounts', async (req, res) => {
+  const { email } = req.query; // Get the email from query parameters
+
+  if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+  }
+
+  try {
+      // Find the user by email
+      const user = await User.findOne({ email });
+
+      if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+
+      // Extract linked social media accounts
+      const linkedSocialMedia = Array.from(user.linkedSocialMedia.entries()).map(([platform, socialId]) => ({
+          platform,
+          socialId,
+      }));
+
+      res.status(200).json(linkedSocialMedia);
+  } catch (error) {
+      console.error('Error fetching user accounts:', error);
+      res.status(500).json({ message: 'Server error' });
   }
 });

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './NearbyPage.css';
-
 import axios from 'axios';
 
 const NearbyPage = () => {
@@ -28,18 +27,18 @@ const NearbyPage = () => {
     }, []);
 
     return (
-        <div>
+        <div className="page-container">
             <h2>Nearby People (within 100m)</h2>
             {nearbyUsers.length === 0 ? (
-                <p>No nearby users found.</p>
+                <p className="no-users-message">No nearby users found.</p>
             ) : (
                 nearbyUsers.map((user, index) => (
-                    <div key={index}>
+                    <div key={index} className="user-card">
                         <h4>{user.name}</h4>
                         <ul>
                             {Object.entries(user.linkedSocialMedia).map(([platform, id]) => (
                                 <li key={platform}>
-                                    {platform}: {id}
+                                    <span className="platform">{platform}:</span> {id}
                                 </li>
                             ))}
                         </ul>

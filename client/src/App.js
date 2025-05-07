@@ -23,11 +23,13 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Homepage from './components/Homepage';
 import EnterPage from './components/EnterPage';
 import NearbyPage from './components/NearbyPage';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
 import Navbar from './components/Navbar'; // 🛑 Import Navbar
+import MyProfile from './components/MyProfile';
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
       <div>
         <Navbar /> {/* 🛑 Add Navbar at the top */}
         <Routes>
+          <Route path="/home" element={<Homepage />} />
+          <Route path="/profile" element={<MyProfile />} /> 
           <Route path="/enter" element={<EnterPage />} />
           <Route path="/nearby" element={<NearbyPage />} />
           <Route path="/login" element={<LoginPage />} />

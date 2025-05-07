@@ -1,0 +1,42 @@
+/* General container styling */
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Header styling */
+  .homepage-header h1 {
+    font-size: 3rem;
+    color: #333;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+  }
+  
+  /* Content styling */
+  .homepage-content {
+    max-width: 800px;
+    text-align: center;
+    color: #555;
+    line-height: 1.6;
+    font-size: 1.2rem;
+  }
+  
+  .homepage-content p {
+    margin-bottom: 15px;
+  }
+  
+  /* Add some hover effect for links (if any) */
+  .homepage-content a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .homepage-content a:hover {
+    text-decoration: underline;
+  }

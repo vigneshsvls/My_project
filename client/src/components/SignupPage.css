@@ -1,40 +1,64 @@
-.page-container {
+/* General container styling */
+.signup-container {
     max-width: 400px;
     margin: 60px auto;
     padding: 30px;
     border-radius: 12px;
     background: #ffffff;
-    box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
 }
 
-h2 {
+/* Header styling */
+.signup-container h2 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
-form {
+/* Form container styling */
+.form-container {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-input {
+/* Input field styling */
+.form-container input {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 15px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-input:focus {
+.form-container input:focus {
     border-color: #4a90e2;
     outline: none;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
 }
 
-button {
+/* Label styling */
+.form-container label {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Error message styling */
+.form-container p {
+    color: #d41717;;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Button styling */
+.signup-button {
     padding: 12px;
-    background-color: #4a90e2;
-    color: white;
+    background-color: #d41717;
     border: none;
     border-radius: 8px;
     font-size: 16px;
@@ -43,18 +67,33 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #3a78c2;
+.signup-button:hover {
+    background-color:#931212;
 }
 
-.error-message {
-    color: red;
-    text-align: center;
-    margin-top: 10px;
+.signup-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
-.success-message {
-    color: green;
+/* Link styling */
+.signup-container a {
+    color: #d41717;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-container a:hover {
+    text-shadow: 0 0 5px #931212;
+}
+
+/* Already have an account link styling */
+.signup-container div {
+    /* text-align: center; */
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.login-link {
     text-align: center;
-    margin-top: 10px;
 }

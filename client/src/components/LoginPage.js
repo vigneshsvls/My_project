@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LoginPage.css'; // 🛑 Add your CSS styles here 
+import './LoginPage.css';
 import axios from 'axios';
 
 const LoginPage = () => {
@@ -12,9 +12,8 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
 
-    const validateForm = () => {
+    const validateForm=() => {
         const newErrors = {};
-
         if (!email.trim()) {
             newErrors.email = 'Email is required';
         } else {
@@ -67,12 +66,12 @@ const LoginPage = () => {
     };
 
     return (
-        <div>
+        <div class="login-container">
             <h2>Log In</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} class="form-container">
                 {errors.general && <p>{errors.general}</p>}
 
-                <div>
+                <div class="email-container">
                     <label htmlFor="email">Email</label>
                     <input
                         type="email"
@@ -85,7 +84,7 @@ const LoginPage = () => {
                     {errors.email && <p>{errors.email}</p>}
                 </div>
 
-                <div>
+                <div class="password-container">
                     <label htmlFor="password">Password</label>
                     <input
                         type="password"
@@ -98,12 +97,12 @@ const LoginPage = () => {
                     {errors.password && <p>{errors.password}</p>}
                 </div>
 
-                <button type="submit" disabled={isSubmitting}>
+                <button type="submit" disabled={isSubmitting} class="login-button">
                     {isSubmitting ? 'Logging In...' : 'Log In'}
                 </button>
             </form>
-            <div>
-                Don't have an account? <a href="/register">Sign up</a>
+            <div class="signup-link">
+                <p>Don't have an account?</p> <a href="/register">Sign up</a>
             </div>
         </div>
     );

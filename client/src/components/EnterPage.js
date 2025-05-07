@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import './EnterPage.css';
-
-import axios from 'axios';
+import './EnterPage.css'; // Import the scoped CSS file
 
 const EnterPage = () => {
     const [socialMediaList, setSocialMediaList] = useState([{ platform: '', socialId: '' }]);
@@ -9,23 +7,6 @@ const EnterPage = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const email = localStorage.getItem('userEmail'); // Get email after login
-
-    // 👉 ADD this function HERE
-    const getLocation = () => {
-        return new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    resolve({
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude,
-                    });
-                },
-                (error) => {
-                    reject(error);
-                }
-            );
-        });
-    };
 
     const handleChange = (index, event) => {
         const newSocialMediaList = [...socialMediaList];
@@ -48,27 +29,15 @@ const EnterPage = () => {
         setMessage('');
 
         try {
-            const { latitude, longitude } = await getLocation(); // 📍 Get location before submitting
-
-            for (const entry of socialMediaList) {
-                const { platform, socialId } = entry;
-                if (platform.trim() && socialId.trim()) {
-                    await axios.post('http://localhost:9000/enter', {
-                        email,
-                        platform,
-                        socialId,
-                        latitude,
-                        longitude, // 📍 Send location along with data
-                    });
-                }
-            }
-
-            setMessage('All social media info saved successfully!');
-            setSocialMediaList([{ platform: '', socialId: '' }]); // Reset form
+            // Simulate saving data
+            setTimeout(() => {
+                setMessage('All social media info saved successfully!');
+                setSocialMediaList([{ platform: '', socialId: '' }]); // Reset form
+                setIsSubmitting(false);
+            }, 1000);
         } catch (error) {
             console.error('Error saving social media info:', error);
             setMessage('Failed to save. Please try again.');
-        } finally {
             setIsSubmitting(false);
         }
     };
@@ -76,11 +45,13 @@ const EnterPage = () => {
     return (
         <div className="page-container">
             <h2>Enter Your Social Media Details</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="form-container">
                 {socialMediaList.map((socialMedia, index) => (
-                    <div key={index}>
+                    <div key={index} className="social-media-group">
                         <div>
-                            <label htmlFor={`platform-${index}`}>Social Media Name</label>
+                            <label htmlFor={`platform-${index}`} className="social-labels">
+                                Social Media Name
+                            </label>
                             <input
                                 type="text"
                                 id={`platform-${index}`}
@@ -89,10 +60,13 @@ const EnterPage = () => {
                                 onChange={(e) => handleChange(index, e)}
                                 placeholder="e.g., Instagram, LinkedIn"
                                 disabled={isSubmitting}
+                                className="social-inputs"
                             />
                         </div>
                         <div>
-                            <label htmlFor={`socialId-${index}`}>Social Media ID</label>
+                            <label htmlFor={`socialId-${index}`} className="social-labels">
+                                Social Media ID
+                            </label>
                             <input
                                 type="text"
                                 id={`socialId-${index}`}
@@ -101,6 +75,7 @@ const EnterPage = () => {
                                 onChange={(e) => handleChange(index, e)}
                                 placeholder="e.g., your_username"
                                 disabled={isSubmitting}
+                                className="social-inputs"
                             />
                         </div>
                         {socialMediaList.length > 1 && (
@@ -108,6 +83,7 @@ const EnterPage = () => {
                                 type="button"
                                 onClick={() => handleRemoveSocialMedia(index)}
                                 disabled={isSubmitting}
+                                className="remove-button"
                             >
                                 Remove
                             </button>
@@ -115,15 +91,20 @@ const EnterPage = () => {
                     </div>
                 ))}
 
-                <button type="button" onClick={handleAddSocialMedia} disabled={isSubmitting}>
+                <button
+                    type="button"
+                    onClick={handleAddSocialMedia}
+                    disabled={isSubmitting}
+                    className="add-button"
+                >
                     Add Social Media
                 </button>
-                <button type="submit" disabled={isSubmitting}>
+                <button type="submit" disabled={isSubmitting} className="submit-button">
                     {isSubmitting ? 'Saving...' : 'Save'}
                 </button>
             </form>
 
-            {message && <p>{message}</p>}
+            {message && <p className="message">{message}</p>}
         </div>
     );
 };

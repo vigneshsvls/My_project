@@ -72,10 +72,10 @@ const SignupPage = () => {
     };
 
     return (
-        <div>
+        <div class="signup-container">
             <h2>Sign Up</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form onSubmit={handleSubmit} class="form-container">
+                <div class="name-container">
                     <label htmlFor="name">Name</label>
                     <input
                         type="text"
@@ -127,12 +127,12 @@ const SignupPage = () => {
                     {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
                 </div>
 
-                <button type="submit" disabled={isSubmitting}>
+                <button type="submit" disabled={isSubmitting} class="signup-button">
                     {isSubmitting ? 'Signing Up...' : 'Sign Up'}
                 </button>
             </form>
-            <div>
-                Already have an account? <a href="/login">Log in</a>
+            <div class="login-link">
+                <p> Already have an account? </p><a href="/login">Log in</a>
             </div>
         </div>
     );

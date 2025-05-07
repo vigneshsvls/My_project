@@ -1,0 +1,65 @@
+/* General container styling */
+.profile-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Header styling */
+.profile-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Loading and error messages */
+.loading-message,
+.error-message,
+.no-accounts-message {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+    margin-top: 20px;
+}
+
+/* Error message styling */
+.error-message {
+    color: red;
+}
+
+/* Accounts table styling */
+.accounts-table {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Individual account row styling */
+.account-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Platform column styling */
+.account-platform {
+    font-weight: bold;
+    color: #d41717;
+}
+
+/* Social ID column styling */
+.account-id {
+    color: #555;
+}

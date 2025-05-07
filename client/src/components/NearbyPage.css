@@ -1,38 +1,69 @@
+/* General container styling */
 .page-container {
     max-width: 700px;
     margin: 40px auto;
     padding: 20px;
     border-radius: 12px;
     background: #f9f9f9;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
 }
 
+/* Header styling */
 h2 {
     text-align: center;
     color: #333;
     margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
+/* User card styling */
 .user-card {
     padding: 20px;
     margin-bottom: 20px;
     background: white;
     border-radius: 10px;
-    box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-h4 {
+.user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* User name styling */
+.user-card h4 {
     margin: 0;
     color: #4a90e2;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-ul {
+/* Social media list styling */
+.user-card ul {
     list-style-type: none;
     padding: 0;
     margin-top: 10px;
 }
 
-li {
+.user-card li {
     padding: 5px 0;
     color: #555;
+    font-size: 14px;
+}
+
+/* Social media platform styling */
+.user-card li span.platform {
+    font-weight: bold;
+    color: #333;
+}
+
+/* No users found message */
+.no-users-message {
+    text-align: center;
+    color: #777;
+    font-size: 16px;
+    margin-top: 20px;
 }

@@ -1,40 +1,59 @@
+/* General navbar styling */
 nav {
-    background-color: #4a90e2;
-    padding: 12px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
-}
-
-.nav-links {
-    display: flex;
-    gap: 20px;
-}
-
-.nav-links a {
+    padding: 10px 20px;
+    background-color: #d41717; /* Dark background */
+    color:black; 
+    font-family: Arial,sans-serif;
+  }
+  
+  .span-class{
     color: white;
-    font-size: 16px;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.nav-links a:hover {
-    text-decoration: underline;
-}
-
-.logout-button {
-    background-color: #ff5c5c;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    font-size: 14px;
+    font-size: 20px;
     font-weight: bold;
-    transition: background-color 0.3s;
-}
+  }
 
-.logout-button:hover {
-    background-color: #e04848;
-}
+  /* Left side (application name) */
+  .navbar-left a {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+  }
+  
+  .navbar-left a:hover {
+    color: #00bcd4; 
+  }
+  
+  /* Right side (links and buttons) */
+  .navbar-right a {
+    margin-left: 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+  
+  .navbar-right a:hover {
+    color:black; 
+  }
+  
+  /* Logout button styling */
+  .logout-button {
+    margin-left: 15px;
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .logout-button:hover {
+    background-color: #00bcd4; /* Highlight color */
+    border-color: #00bcd4;
+    color: white;
+  }

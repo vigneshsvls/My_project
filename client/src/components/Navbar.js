@@ -4,7 +4,7 @@ import React from 'react';
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const userEmail = localStorage.getItem('userEmail'); // 🛑 Check if user logged in
+    const userEmail = localStorage.getItem('userEmail');//Check if user logged in
 
     const handleLogout = () => {
         localStorage.removeItem('userEmail'); 
@@ -12,9 +12,9 @@ const Navbar = () => {
     };
 
     // If no userEmail (not logged in), don't show navbar
-    if (!userEmail) {
-        return null;
-    }
+    // if (!userEmail) {
+    //     return null;
+    // }
 
     return (
         // <nav style={{ marginBottom: '20px' }}>
@@ -24,12 +24,38 @@ const Navbar = () => {
         //         Logout
         //     </button>
         // </nav>
-        <nav>
-  <div className="nav-links">
-    <Link to="/enter">Add Social Media</Link>
-    <Link to="/nearby">Nearby People</Link>
-  </div>
-  <button className="logout-button" onClick={handleLogout}>Logout</button>
+//         <nav>
+//   <div className="nav-links">
+//     <Link to="/enter">Profile</Link>
+//     <Link to="/enter">Add Social Media</Link>
+//     <Link to="/nearby">Nearby People</Link>
+//   </div>
+//   <button className="logout-button" onClick={handleLogout}>Logout</button>
+// </nav>
+
+<nav>
+<div className="navbar-left">
+    <Link to="/home"><span class="span-class">Reach</span>R</Link>
+</div>
+<div className="navbar-right">
+    {userEmail ? (
+        // Links for logged-in users
+        <>
+            <Link to="/profile">My Profile</Link>
+            <Link to="/enter">Add Social Media</Link>
+            <Link to="/nearby">Nearby People</Link>
+            <button className="logout-button" onClick={handleLogout}>
+                Logout
+            </button>
+        </>
+    ) : (
+        // Links for non-logged-in users
+        <>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Sign Up</Link>
+        </>
+    )}
+</div>
 </nav>
 
     );
