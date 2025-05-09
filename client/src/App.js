@@ -21,17 +21,20 @@
 // export default App
 
 
-import React from 'react';
+import React,{useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from './components/Homepage';
 import EnterPage from './components/EnterPage';
 import NearbyPage from './components/NearbyPage';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
-import Navbar from './components/Navbar'; // 🛑 Import Navbar
+import Navbar from './components/Navbar';
 import MyProfile from './components/MyProfile';
 
 function App() {
+  useEffect(() => {
+    document.title = "ReachR";
+  }, []);
   return (
     <Router>
       <div>

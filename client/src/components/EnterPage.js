@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './EnterPage.css'; // Import the scoped CSS file
-
+import './EnterPage.css';
+import config from './config'
 const EnterPage = () => {
     const [socialMediaList, setSocialMediaList] = useState([{ platform: '', socialId: '' }]);
     const [message, setMessage] = useState('');

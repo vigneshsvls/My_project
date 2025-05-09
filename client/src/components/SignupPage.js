@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './SignupPage.css';
 import axios from 'axios';
+import config from './config'
+
 
 const SignupPage = () => {
     const [name, setName] = useState('');
@@ -55,7 +57,7 @@ const SignupPage = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:9000/register', {
+            const response = await axios.post(`${config.BASE_URL}/register`, {
                 name,
                 email,
                 password

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './MyProfile.css'; // Import the CSS file
-
+import config from './config'
 const MyProfile = () => {
     const [accounts, setAccounts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -12,7 +12,7 @@ const MyProfile = () => {
         const fetchAccounts = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`http://localhost:9000/accounts?email=${email}`);
+                const response = await fetch(`${config.BASE_URL}/accounts?email=${email}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch accounts');
                 }

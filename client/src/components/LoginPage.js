@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 import axios from 'axios';
+import config from './config'
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -44,7 +45,7 @@ const LoginPage = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:9000/login', {
+            const response = await axios.post(`${config.BASE_URL}/login`, {
                 email,
                 password
             });

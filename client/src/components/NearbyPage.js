@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './NearbyPage.css';
 import axios from 'axios';
+import config from './config'
 
 const NearbyPage = () => {
     const [nearbyUsers, setNearbyUsers] = useState([]);
@@ -11,7 +12,7 @@ const NearbyPage = () => {
                 navigator.geolocation.getCurrentPosition(async (position) => {
                     const { latitude, longitude } = position.coords;
 
-                    const response = await axios.post('http://localhost:9000/nearby', {
+                    const response = await axios.post(`${config.BASE_URL}/nearby`, {
                         latitude,
                         longitude
                     });
