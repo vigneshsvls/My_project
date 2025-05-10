@@ -12,7 +12,7 @@ const MyProfile = () => {
         const fetchAccounts = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`${config.BASE_URL}/accounts?email=${email}`);
+                const response = await fetch(`http://localhost:9000/accounts?email=${email}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch accounts');
                 }

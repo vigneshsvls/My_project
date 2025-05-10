@@ -72,33 +72,33 @@ app.post('/login', async (req, res) => {
 
 
 
-app.post('/enter', async (req, res) => {
-  const { email, platform, socialId, latitude, longitude } = req.body;
+// app.post('/enter', async (req, res) => {
+//   const { email, platform, socialId, latitude, longitude } = req.body;
 
-  try {
-    const user = await User.findOne({ email });
+//   try {
+//     const user = await User.findOne({ email });
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
 
-    // Set social media
-    user.linkedSocialMedia.set(platform, socialId);
+//     // Set social media
+//     user.linkedSocialMedia.set(platform, socialId);
 
-    // Set location
-    user.location = {
-      type: 'Point',
-      coordinates: [longitude, latitude]
-    };
+//     // Set location
+//     user.location = {
+//       type: 'Point',
+//       coordinates: [longitude, latitude]
+//     };
 
-    await user.save();
+//     await user.save();
 
-    res.json({ message: 'Social media and location saved successfully!' });
-  } catch (error) {
-    console.error('Error saving social media info:', error);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
+//     res.json({ message: 'Social media and location saved successfully!' });
+//   } catch (error) {
+//     console.error('Error saving social media info:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// });
 
 app.post('/nearby', async (req, res) => {
   const { latitude, longitude } = req.body;
@@ -159,3 +159,90 @@ app.get('/accounts', async (req, res) => {
       res.status(500).json({ message: 'Server error' });
   }
 });
+
+
+
+// app.post('/enter', async (req, res) => {
+//   const { email, socialMediaList } = req.body;
+
+//   try {
+//     const user = await User.findOne({ email });
+
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     // Store each platform-id pair
+//     socialMediaList.forEach(({ platform, socialId }) => {
+//       user.linkedSocialMedia.set(platform, socialId);
+//     });
+
+//     await user.save();
+
+//     res.json({ message: 'Social media info saved successfully!' });
+//   } catch (error) {
+//     console.error('Error saving social media info:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// });
+
+app.post('/enter', async (req, res) => {
+  const { email, socialMediaList } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Ensure user.linkedSocialMedia exists as a Map or object
+    if (!user.linkedSocialMedia) {
+      user.linkedSocialMedia = {};
+    }
+
+    // Update social media entries
+    socialMediaList.forEach(({ platform, socialId }) => {
+      if (platform && socialId) {
+        user.linkedSocialMedia.set(platform, socialId);
+      }
+    });
+
+    await user.save();
+
+    res.json({ message: 'Social media info saved successfully!' });
+  } catch (error) {
+    console.error('Error saving social media info:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+app.post('/update-location', async (req, res) => {
+  const { email, latitude, longitude } = req.body;
+
+  if (!email || latitude == null || longitude == null) {
+    return res.status(400).json({ message: 'Email, latitude, and longitude are required' });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.location = {
+      type: 'Point',
+      coordinates: [longitude, latitude]
+    };
+
+    await user.save();
+
+    res.json({ message: 'Location updated successfully' });
+  } catch (error) {
+    console.error('Error updating location:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+

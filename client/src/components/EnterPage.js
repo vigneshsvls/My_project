@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import './EnterPage.css';
 import config from './config'
+import axios from 'axios';
 const EnterPage = () => {
     const [socialMediaList, setSocialMediaList] = useState([{ platform: '', socialId: '' }]);
     const [message, setMessage] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const email = localStorage.getItem('userEmail'); // Get email after login
+    const email = localStorage.getItem('userEmail');//Get email after login
 
     const handleChange = (index, event) => {
         const newSocialMediaList = [...socialMediaList];
@@ -29,6 +30,11 @@ const EnterPage = () => {
         setMessage('');
 
         try {
+            const response=await axios.post(`http://localhost:9000/enter`,{
+                email,
+                socialMediaList
+            });
+            console.log('Response:', response.data);
             // Simulate saving data
             setTimeout(() => {
                 setMessage('All social media info saved successfully!');

@@ -45,7 +45,7 @@ const LoginPage = () => {
         }
 
         try {
-            const response = await axios.post(`${config.BASE_URL}/login`, {
+            const response = await axios.post(`http://localhost:9000/login`, {
                 email,
                 password
             });
