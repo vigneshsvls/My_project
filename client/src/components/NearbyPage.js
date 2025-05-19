@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './NearbyPage.css';
-
+import config from './config';
 const NearbyPage = () => {
     const [nearbyUsers, setNearbyUsers] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -19,14 +19,14 @@ const NearbyPage = () => {
                         try {
                             // Update user's location in the backend
                             const email = localStorage.getItem('userEmail'); // Get the logged-in user's email
-                            await axios.post('http://localhost:9000/update-location', {
+                            await axios.post(`${config.BASE_URL}/update-location`, {
                                 email,
                                 latitude,
                                 longitude
                             });
 
                             // Now fetch nearby users based on current location
-                            const response = await axios.post('http://localhost:9000/nearby', {
+                            const response = await axios.post(`${config.BASE_URL}/nearby`, {
                                 latitude,
                                 longitude
                             });

@@ -30,7 +30,7 @@ const EnterPage = () => {
         setMessage('');
 
         try {
-            const response=await axios.post(`http://localhost:9000/enter`,{
+            const response=await axios.post(`${config.BASE_URL}/enter`,{
                 email,
                 socialMediaList
             });

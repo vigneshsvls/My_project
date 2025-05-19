@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import './MyProfile.css'; // Import the CSS file
+import './MyProfile.css';
 import config from './config'
 const MyProfile = () => {
     const [accounts, setAccounts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
-    const email = localStorage.getItem('userEmail'); // Get the logged-in user's email
+    const email = localStorage.getItem('userEmail');//get the loggedin user's email
 
     useEffect(() => {
         const fetchAccounts = async () => {
-            try {
+            try{
                 setLoading(true);
-                const response = await fetch(`http://localhost:9000/accounts?email=${email}`);
-                if (!response.ok) {
+                const response = await fetch(`${config.BASE_URL}/accounts?email=${email}`);
+                if (!response.ok){
                     throw new Error('Failed to fetch accounts');
                 }
-                const data = await response.json();
+                const data=await response.json();
                 setAccounts(data);
-            } catch (err) {
+            }
+            catch(err){
                 setError(err.message);
-            } finally {
+            } 
+            finally{
                 setLoading(false);
             }
         };
